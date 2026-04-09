@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Casual Calçados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0a0a; --off-black: #111111; --dark: #1a1a1a; --card: #161616;
+      --border: #272727; --border2: #333; --white: #f5f5f0; --off-white: #e0e0da;
+      --muted: #777770; --accent: #c8a96e; --accent-light: #dfc18e;
+      --promo: #e05252; --green: #4caf7d; --radius: 6px; --radius-lg: 12px;
+      --t: 0.22s cubic-bezier(.4,0,.2,1);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--black); color: var(--white); min-height: 100vh; }
+
+    /* LOGIN */
+    #login-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+      background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(200,169,110,0.07) 0%, transparent 70%);
+    }
+    .login-box {
+      width: 100%; max-width: 380px; background: var(--off-black);
+      border: 1px solid var(--border); border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 1.4rem;
+    }
+    .login-logo { text-align: center; }
+    .login-logo h1 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 900; }
+    .login-logo h1 span { color: var(--accent); }
+    .login-logo p { color: var(--muted); font-size: 0.82rem; margin-top: 0.3rem; letter-spacing: 0.12em; text-transform: uppercase; }
+    .field { display: flex; flex-direction: column; gap: 0.45rem; }
+    .field label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .field input, .field select, .field textarea {
+      background: var(--dark); border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      padding: 0.7rem 0.9rem; outline: none; transition: border-color var(--t); width: 100%;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--accent); }
+    .field select option { background: var(--dark); }
+    .login-error {
+      background: rgba(224,82,82,0.12); border: 1px solid rgba(224,82,82,0.3);
+      color: var(--promo); font-size: 0.82rem; padding: 0.6rem 0.9rem;
+      border-radius: var(--radius); display: none;
+    }
+    .login-error.show { display: block; }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
+      font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 0.87rem;
+      padding: 0.7rem 1.3rem; border-radius: var(--radius); border: none;
+      cursor: pointer; letter-spacing: 0.03em; transition: all var(--t); white-space: nowrap;
+    }
+    .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .btn-gold { background: var(--accent); color: var(--black); }
+    .btn-gold:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--muted); border: 1px solid var(--border2); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger { background: rgba(224,82,82,0.12); color: var(--promo); border: 1px solid rgba(224,82,82,0.25); }
+    .btn-danger:hover { background: rgba(224,82,82,0.22); }
+    .btn-green { background: rgba(76,175,125,0.12); color: var(--green); border: 1px solid rgba(76,175,125,0.25); }
+    .btn-green:hover { background: rgba(76,175,125,0.22); }
+    .btn-full { width: 100%; }
+    .btn-sm { padding: 0.45rem 0.9rem; font-size: 0.8rem; }
+    .btn-icon { padding: 0.45rem; width: 32px; height: 32px; }
+    .btn-icon svg { width: 14px; height: 14px; }
+
+    /* ADMIN LAYOUT */
+    #admin-screen { display: none; min-height: 100vh; }
+    #admin-screen.visible { display: flex; flex-direction: column; }
+    .admin-layout { display: flex; flex: 1; min-height: calc(100vh - 64px); }
+
+    /* TOPBAR */
+    .topbar {
+      height: 64px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1.5rem; background: rgba(10,10,10,0.97);
+      border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50;
+    }
+    .topbar-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-logo small {
+      display: inline-block; margin-left: 0.6rem; font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); vertical-align: middle;
+    }
+    .topbar-right { display: flex; align-items: center; gap: 0.7rem; }
+    .admin-badge {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.2);
+      padding: 0.25rem 0.7rem; border-radius: 100px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 220px; flex-shrink: 0; background: var(--off-black);
+      border-right: 1px solid var(--border); padding: 1.5rem 1rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .sidebar-section {
+      font-size: 0.63rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); padding: 0.3rem 0.6rem; margin-top: 0.8rem; margin-bottom: 0.1rem;
+    }
+    .sidebar-btn {
+      display: flex; align-items: center; gap: 0.6rem; width: 100%; background: none;
+      border: none; cursor: pointer; color: var(--muted); font-family: 'DM Sans', sans-serif;
+      font-size: 0.86rem; font-weight: 500; padding: 0.6rem 0.8rem;
+      border-radius: var(--radius); transition: all var(--t); text-align: left;
+    }
+    .sidebar-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .sidebar-btn:hover { background: var(--dark); color: var(--white); }
+    .sidebar-btn.active { background: rgba(200,169,110,0.1); color: var(--accent); }
+
+    /* MAIN */
+    .main-content { flex: 1; overflow-y: auto; padding: 2rem 1.5rem; }
+
+    /* PAGE HEADER */
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.8rem; gap: 1rem; flex-wrap: wrap;
+    }
+    .page-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; }
+    .page-sub { color: var(--muted); font-size: 0.82rem; margin-top: 0.2rem; }
+
+    /* STATS */
+    .stats-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.2rem 1.3rem; }
+    .stat-card-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+    .stat-card-value { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+    .stat-card-value.gold { color: var(--accent); }
+    .stat-card-value.green { color: var(--green); }
+    .stat-card-value.red { color: var(--promo); }
+
+    /* TOOLBAR */
+    .toolbar { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .search-wrap { position: relative; flex: 1; min-width: 200px; }
+    .search-wrap svg { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--muted); pointer-events: none; }
+    .search-wrap input {
+      width: 100%; background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--white); font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem; padding: 0.65rem 0.9rem 0.65rem 2.4rem;
+      outline: none; transition: border-color var(--t);
+    }
+    .search-wrap input:focus { border-color: var(--accent); }
+    .search-wrap input::placeholder { color: var(--muted); }
+    #filter-cat-select {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--white); font-family: 'DM Sans', sans-serif; font-size: .87rem;
+      padding: .65rem .9rem; outline: none; cursor: pointer;
+    }
+
+    /* TABLE */
+    .table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { border-bottom: 1px solid var(--border); }
+    thead th { text-align: left; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0.9rem 1rem; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background var(--t); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody td { padding: 0.85rem 1rem; font-size: 0.87rem; vertical-align: middle; }
+    .td-img { width: 48px; height: 48px; border-radius: var(--radius); object-fit: cover; background: var(--dark); flex-shrink: 0; }
+    .td-img-wrap { display: flex; align-items: center; gap: 0.8rem; }
+    .td-name { font-weight: 600; }
+    .td-cat { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: var(--dark); padding: 0.2rem 0.6rem; border-radius: 100px; display: inline-block; }
+    .td-price { font-weight: 700; color: var(--accent); }
+    .td-price-old { font-size: 0.75rem; color: var(--muted); text-decoration: line-through; margin-left: 0.3rem; }
+    .td-sizes { font-size: 0.78rem; color: var(--muted); max-width: 160px; }
+    .td-badge { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 100px; }
+    .badge-promo { background: rgba(224,82,82,0.15); color: var(--promo); }
+    .badge-novo { background: rgba(200,169,110,0.15); color: var(--accent); }
+    .badge-none { color: var(--muted); font-size: 0.72rem; }
+    .td-actions { display: flex; gap: 0.4rem; align-items: center; }
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--muted); }
+    .empty-state strong { display: block; color: var(--off-white); font-size: 1rem; margin-bottom: 0.3rem; }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center; padding: 1rem;
+      opacity: 0; pointer-events: none; transition: opacity var(--t);
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--off-black); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); width: 100%; max-width: 560px;
+      max-height: 90vh; overflow-y: auto;
+      transform: translateY(20px); transition: transform var(--t);
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1.3rem 1.5rem; border-bottom: 1px solid var(--border); }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; }
+    .modal-close {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      background: var(--dark); border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--muted); cursor: pointer; font-size: 1.1rem; transition: all var(--t);
+    }
+    .modal-close:hover { border-color: var(--promo); color: var(--promo); }
+    .modal-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.1rem; }
+    .modal-footer { display: flex; justify-content: flex-end; gap: 0.7rem; padding: 1.1rem 1.5rem; border-top: 1px solid var(--border); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* SIZE PICKER */
+    .size-picker-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.4rem; }
+    .size-chip {
+      width: 38px; height: 38px; display: flex; align-items: center; justify-content: center;
+      background: var(--dark); border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--muted); font-size: 0.78rem; font-weight: 500;
+      cursor: pointer; transition: all var(--t); user-select: none;
+    }
+    .size-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .size-chip.on { background: var(--accent); border-color: var(--accent); color: var(--black); font-weight: 700; }
+    .size-hint { font-size: 0.73rem; color: var(--muted); margin-top: 0.3rem; }
+
+    /* IMG PREVIEW */
+    .img-preview { width: 100%; height: 160px; border-radius: var(--radius); object-fit: cover; background: var(--dark); border: 1px solid var(--border); margin-top: 0.5rem; display: none; }
+    .img-preview.show { display: block; }
+
+    /* MULTI PHOTO FIELDS */
+    .img-field-row {
+      display: flex; gap: 0.5rem; align-items: flex-start;
+    }
+    .img-field-row input {
+      flex: 1; background: var(--dark); border: 1px solid var(--border);
+      border-radius: var(--radius); color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+      padding: 0.65rem 0.9rem; outline: none; transition: border-color var(--t);
+    }
+    .img-field-row input:focus { border-color: var(--accent); }
+    .img-field-row input::placeholder { color: var(--muted); }
+    .img-field-thumb {
+      width: 44px; height: 44px; border-radius: var(--radius);
+      object-fit: cover; background: var(--dark); border: 1px solid var(--border);
+      flex-shrink: 0; display: none;
+    }
+    .img-field-thumb.show { display: block; }
+    .img-field-remove {
+      width: 32px; height: 44px; display: flex; align-items: center; justify-content: center;
+      background: none; border: none; color: var(--muted); cursor: pointer;
+      border-radius: var(--radius); transition: color var(--t); flex-shrink: 0;
+    }
+    .img-field-remove:hover { color: var(--promo); }
+    .img-field-remove svg { width: 14px; height: 14px; }
+
+    /* CONFIRM MODAL */
+    .confirm-overlay {
+      position: fixed; inset: 0; z-index: 300;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center; padding: 1rem;
+      opacity: 0; pointer-events: none; transition: opacity var(--t);
+    }
+    .confirm-overlay.open { opacity: 1; pointer-events: all; }
+    .confirm-box {
+      background: var(--off-black); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 2rem 1.8rem;
+      max-width: 360px; width: 100%; text-align: center;
+      transform: scale(0.95); transition: transform var(--t);
+    }
+    .confirm-overlay.open .confirm-box { transform: scale(1); }
+    .confirm-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+    .confirm-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .confirm-sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 1.5rem; line-height: 1.5; }
+    .confirm-actions { display: flex; gap: 0.7rem; justify-content: center; }
+
+    /* CATEGORIES PAGE */
+    .cat-list { display: flex; flex-direction: column; gap: 0.7rem; }
+    .cat-row {
+      display: flex; align-items: center; gap: 0.8rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 0.9rem 1.1rem;
+      transition: border-color var(--t);
+    }
+    .cat-row:hover { border-color: var(--border2); }
+    .cat-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .cat-name { flex: 1; font-weight: 600; font-size: 0.92rem; }
+    .cat-slug-pill { font-size: 0.72rem; color: var(--muted); font-family: monospace; background: var(--dark); padding: 0.15rem 0.55rem; border-radius: 4px; border: 1px solid var(--border); }
+    .cat-count-label { font-size: 0.75rem; color: var(--muted); min-width: 70px; text-align: right; }
+    .cat-default-badge { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 0.15rem 0.5rem; border-radius: 100px; }
+    .cat-actions { display: flex; gap: 0.4rem; }
+    .cat-modal-inner { max-width: 420px; }
+
+    /* CONTENT PAGE */
+    .content-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.4rem 1.5rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .content-card-title {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: 'Playfair Display', serif; font-size: 0.95rem; font-weight: 700;
+      color: var(--off-white); margin-bottom: 0.1rem;
+    }
+    .content-card-title svg { width: 15px; height: 15px; color: var(--accent); flex-shrink: 0; }
+    .field-hint { font-size: .72rem; color: var(--muted); margin-top: .3rem; display: block; line-height: 1.5; }
+    .field textarea {
+      background: var(--dark); border: 1px solid var(--border); border-radius: var(--radius);
+      color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
+      padding: 0.7rem 0.9rem; outline: none; transition: border-color var(--t);
+      width: 100%; resize: vertical;
+    }
+    .field textarea:focus { border-color: var(--accent); }
+    .form-row3 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: var(--dark); border: 1px solid var(--border2);
+      color: var(--white); padding: 0.65rem 1.4rem;
+      border-radius: 100px; font-size: 0.83rem; font-weight: 500;
+      z-index: 999; transition: transform 0.3s ease; white-space: nowrap; pointer-events: none;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 700px) {
+      .sidebar { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      thead th:nth-child(3), thead th:nth-child(4), thead th:nth-child(5) { display: none; }
+      tbody td:nth-child(3), tbody td:nth-child(4), tbody td:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="login-box">
+      <div class="login-logo">
+        <h1>Casual <span>Calçados</span></h1>
+        <p>Área Administrativa</p>
+      </div>
+      <div class="field">
+        <label>Usuário</label>
+        <input type="text" id="login-user" placeholder="admin" autocomplete="username" />
+      </div>
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <div class="login-error" id="login-error">Usuário ou senha incorretos.</div>
+      <button class="btn btn-gold btn-full" id="login-btn" style="padding:.85rem">Entrar</button>
+      <p style="font-size:.74rem;color:var(--muted);text-align:center;">
+        Padrão: admin / admin123<br>
+        <em style="color:rgba(200,169,110,.6)">Altere no código antes de publicar</em>
+      </p>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="admin-screen">
+    <div class="topbar">
+      <div class="topbar-logo">Casual <span>Calçados</span><small>Admin</small></div>
+      <div class="topbar-right">
+        <span class="admin-badge">● Logado</span>
+        <a href="index.html" target="_blank" class="btn btn-outline btn-sm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Ver Site
+        </a>
+        <button class="btn btn-outline btn-sm" id="logout-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sair
+        </button>
+      </div>
+    </div>
+
+    <div class="admin-layout">
+      <nav class="sidebar" id="sidebar">
+        <div class="sidebar-section">Menu</div>
+        <button class="sidebar-btn active" data-page="produtos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Produtos
+        </button>
+        <button class="sidebar-btn" data-page="categorias">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          Categorias
+        </button>
+        <button class="sidebar-btn" data-page="conteudo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Conteúdo
+        </button>
+        <button class="sidebar-btn" data-page="importar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Importar ML
+        </button>
+        <button class="sidebar-btn" data-page="config">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+          Configurações
+        </button>
+      </nav>
+      <main class="main-content" id="main-content"></main>
+    </div>
+  </div>
+
+  <!-- PRODUCT MODAL -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-title">Novo Produto</div>
+        <button class="modal-close" id="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="form-id" />
+        <div class="field">
+          <label>Nome do Produto *</label>
+          <input type="text" id="form-name" placeholder="Ex: Tênis Urban Runner" />
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Categoria *</label>
+            <select id="form-category"><option value="">Selecione...</option></select>
+          </div>
+          <div class="field">
+            <label>Badge / Destaque</label>
+            <select id="form-badge">
+              <option value="">Nenhum</option>
+              <option value="novo">🆕 Novo</option>
+              <option value="promo">🔥 Promoção</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Preço (R$) *</label>
+            <input type="number" id="form-price" placeholder="0.00" min="0" step="0.01" />
+          </div>
+          <div class="field">
+            <label>Preço Antigo (R$)</label>
+            <input type="number" id="form-old-price" placeholder="Vazio se não houver" min="0" step="0.01" />
+          </div>
+        </div>
+        <div class="field">
+          <label>Fotos do Produto * (até 3)</label>
+          <div id="img-fields" style="display:flex;flex-direction:column;gap:0.6rem;margin-top:0.2rem;"></div>
+          <button type="button" class="btn btn-outline btn-sm" id="btn-add-img-field" style="margin-top:0.5rem;align-self:flex-start;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Adicionar foto
+          </button>
+          <span style="font-size:.72rem;color:var(--muted);margin-top:.3rem;display:block;">A primeira foto é a principal exibida no card.</span>
+        </div>
+        <div class="field">
+          <label>Tamanhos Disponíveis *</label>
+          <div class="size-picker-wrap" id="size-picker"></div>
+          <div class="size-hint">Clique nos números para selecionar/desmarcar</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="modal-cancel-btn">Cancelar</button>
+        <button class="btn btn-gold" id="modal-save-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Salvar Produto
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY MODAL -->
+  <div class="modal-overlay" id="cat-modal">
+    <div class="modal cat-modal-inner">
+      <div class="modal-header">
+        <div class="modal-title" id="cat-modal-title">Nova Categoria</div>
+        <button class="modal-close" id="cat-modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="cat-form-original-slug" />
+        <div class="field">
+          <label>Nome da Categoria *</label>
+          <input type="text" id="cat-form-name" placeholder="Ex: Esportivo" />
+        </div>
+        <div class="field">
+          <label>Slug (identificador) *</label>
+          <input type="text" id="cat-form-slug" placeholder="esportivo" />
+          <span style="font-size:.72rem;color:var(--muted);margin-top:.35rem;display:block;">Somente letras minúsculas, números e hífens. Gerado automaticamente.</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cat-modal-cancel">Cancelar</button>
+        <button class="btn btn-gold" id="cat-modal-save">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Salvar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM DIALOG -->
+  <div class="confirm-overlay" id="confirm-modal">
+    <div class="confirm-box">
+      <div class="confirm-icon" id="confirm-icon">🗑️</div>
+      <div class="confirm-title" id="confirm-title">Confirmar exclusão</div>
+      <div class="confirm-sub" id="confirm-sub"></div>
+      <div class="confirm-actions">
+        <button class="btn btn-outline" id="confirm-cancel">Cancelar</button>
+        <button class="btn btn-danger" id="confirm-ok">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ── AUTH
+    const ADMIN_USER = 'admin';
+    const ADMIN_PASS = 'admin123'; // ⚠️ troque antes de publicar
+
+    // ── DEFAULTS
+    const DEFAULT_CATEGORIES = [
+      { slug: 'masculino', name: 'Masculino' },
+      { slug: 'feminino',  name: 'Feminino'  },
+      { slug: 'infantil',  name: 'Infantil'  },
+    ];
+    const DEFAULT_PRODUCTS = [
+      { id:1, name:'Tênis Urban Runner',     category:'masculino', price:189.90, oldPrice:null,   sizes:[38,39,40,41,42,43],       badge:'novo',  img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80' },
+      { id:2, name:'Sapatilha Delicate',     category:'feminino',  price:129.90, oldPrice:179.90, sizes:[35,36,37,38,39,40],       badge:'promo', img:'https://images.unsplash.com/photo-1518049362265-d5b2a6467637?w=600&q=80' },
+      { id:3, name:'Coturno Classic Boot',   category:'masculino', price:259.90, oldPrice:null,   sizes:[39,40,41,42,43],          badge:null,    img:'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=600&q=80' },
+      { id:4, name:'Sandália Comfort Slide', category:'feminino',  price:89.90,  oldPrice:119.90, sizes:[35,36,37,38,39],          badge:'promo', img:'https://images.unsplash.com/photo-1603487742131-4160ec999306?w=600&q=80' },
+      { id:5, name:'Tênis Infantil Dino',    category:'infantil',  price:79.90,  oldPrice:null,   sizes:[26,27,28,29,30,31,32,33], badge:'novo',  img:'https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=600&q=80' },
+      { id:6, name:'Oxford Elegance',        category:'masculino', price:219.90, oldPrice:299.90, sizes:[39,40,41,42,43],          badge:'promo', img:'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?w=600&q=80' },
+      { id:7, name:'Mule Suede Chic',        category:'feminino',  price:149.90, oldPrice:null,   sizes:[35,36,37,38,39,40],       badge:null,    img:'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600&q=80' },
+      { id:8, name:'Tênis Infantil Star',    category:'infantil',  price:99.90,  oldPrice:129.90, sizes:[28,29,30,31,32,33,34],    badge:'promo', img:'https://images.unsplash.com/photo-1555604733-82b5f0d1d99b?w=600&q=80' },
+    ];
+    const ALL_SIZES = [26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44];
+
+    // ── STORAGE HELPERS
+    function getProducts() {
+      try { const r = localStorage.getItem('cc_products'); return r ? JSON.parse(r) : [...DEFAULT_PRODUCTS]; }
+      catch { return [...DEFAULT_PRODUCTS]; }
+    }
+    function saveProducts(arr) { localStorage.setItem('cc_products', JSON.stringify(arr)); }
+    function nextId(arr) { return arr.length ? Math.max(...arr.map(p => p.id)) + 1 : 1; }
+
+    function getCategories() {
+      try { const r = localStorage.getItem('cc_categories'); return r ? JSON.parse(r) : [...DEFAULT_CATEGORIES]; }
+      catch { return [...DEFAULT_CATEGORIES]; }
+    }
+    function saveCategories(arr) { localStorage.setItem('cc_categories', JSON.stringify(arr)); }
+
+    function catName(slug) {
+      const c = getCategories().find(x => x.slug === slug);
+      return c ? c.name : slug;
+    }
+
+    // ── UTILITIES
+    const fmt     = n  => 'R$ ' + Number(n).toFixed(2).replace('.', ',');
+    const esc     = s  => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const slugify = s  => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+
+    // ── TOAST
+    let _toastTimer = null;
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(_toastTimer);
+      _toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    // ── STATE
+    let products     = getProducts();
+    let searchQ      = '';
+    let filterCat    = 'todos';
+    let currentPage  = 'produtos';
+    let formSizes    = new Set();
+    let confirmCb    = null;
+
+    // ════════════════════════════════════
+    // SIDEBAR NAV
+    // ════════════════════════════════════
+    function updateSidebarActive() {
+      document.querySelectorAll('#sidebar .sidebar-btn[data-page]').forEach(b => {
+        b.classList.toggle('active', b.dataset.page === currentPage);
+      });
+    }
+
+    function renderPage() {
+      updateSidebarActive();
+      const mc = document.getElementById('main-content');
+      if (currentPage !== 'produtos') {
+        const pp = document.getElementById('products-page');
+        if (pp) pp.remove();
+      }
+      if      (currentPage === 'produtos')   renderProductsPage();
+      else if (currentPage === 'categorias') renderCategoriesPage();
+      else if (currentPage === 'conteudo')   renderConteudoPage();
+      else if (currentPage === 'importar')   renderImportarPage();
+      else if (currentPage === 'config')     renderConfigPage();
+    }
+
+    // ════════════════════════════════════
+    // IMPORTAR DO MERCADO LIVRE
+    // ════════════════════════════════════
+    // ════════════════════════════════════
+    // IMPORTAR DO MERCADO LIVRE — OAuth
+    // ════════════════════════════════════
+    const ML_APP_ID    = '8068396076605710';
+    const ML_SECRET    = 'tmSFiSCpClmyA0bV0BVZ4u6KHdBF4moP';
+    const ML_REDIRECT  = 'https://digoraupp1-lang.github.io/claude/admin.html';
+    const ML_TOKEN_KEY = 'cc_ml_token';
+
+    function mlGetToken()          { return localStorage.getItem(ML_TOKEN_KEY); }
+    function mlSaveToken(t)        { localStorage.setItem(ML_TOKEN_KEY, t); }
+    function mlClearToken()        { localStorage.removeItem(ML_TOKEN_KEY); }
+
+    async function mlExchangeCode(code) {
+      const body = new URLSearchParams({
+        grant_type: 'authorization_code',
+        client_id: ML_APP_ID,
+        client_secret: ML_SECRET,
+        code,
+        redirect_uri: ML_REDIRECT,
+      });
+      // tenta corsproxy.io primeiro, depois allorigins
+      let text, r;
+      try {
+        r = await fetch(
+          `https://corsproxy.io/?url=${encodeURIComponent('https://api.mercadolibre.com/oauth/token')}`,
+          { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'x-requested-with': 'XMLHttpRequest' }, body }
+        );
+        text = await r.text();
+      } catch {
+        r = await fetch(
+          `https://api.allorigins.win/get?url=${encodeURIComponent('https://api.mercadolibre.com/oauth/token')}`,
+          { method: 'GET' } // allorigins só suporta GET, fallback limitado
+        );
+        const w = await r.json(); text = w.contents;
+      }
+      const data = JSON.parse(text);
+      if (!data.access_token) throw new Error(data.message || 'Falha na autenticação');
+      return data;
+    }
+
+    async function mlApiFetch(path) {
+      const token = mlGetToken();
+      if (!token) throw new Error('Não autenticado');
+      const url = 'https://api.mercadolibre.com' + path;
+
+      // 1) Tenta direto com Bearer (funciona no GitHub Pages com HTTPS)
+      try {
+        const r = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
+        const text = await r.text();
+        const data = JSON.parse(text);
+        if (r.status === 401 || data.error === 'invalid_token') { mlClearToken(); throw new Error('Sessão expirada. Conecte-se novamente.'); }
+        if (r.ok) return data;
+        throw new Error(data.message || `Erro ${r.status}`);
+      } catch(e) {
+        if (e.message.includes('expirada')) throw e;
+        // 2) Fallback: sem auth (endpoints públicos)
+        const r2 = await fetch(url);
+        if (!r2.ok) throw new Error(`Erro ${r2.status} ao buscar dados`);
+        return r2.json();
+      }
+    }
+    // Detecta retorno OAuth na URL
+    (function checkOAuthCallback() {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      if (!code) return;
+      window.history.replaceState({}, '', window.location.pathname);
+      mlExchangeCode(code).then(data => {
+        mlSaveToken(data.access_token);
+        currentPage = 'importar';
+        if (document.getElementById('admin-screen').classList.contains('visible')) renderPage();
+      }).catch(e => console.error('OAuth error:', e));
+    })();
+
+    function renderImportarPage() {
+      const isConnected = !!mlGetToken();
+
+      document.getElementById('main-content').innerHTML = `
+        <div class="page-header">
+          <div>
+            <div class="page-title">Importar do Mercado Livre</div>
+            <div class="page-sub">${isConnected ? '✅ Conectado — cole o link de um anúncio' : 'Conecte sua conta para importar anúncios'}</div>
+          </div>
+          ${isConnected ? '<button class="btn btn-outline btn-sm" id="btn-ml-desconectar">Desconectar</button>' : ''}
+        </div>
+        <div style="max-width:680px;display:flex;flex-direction:column;gap:1.3rem;">
+        ${!isConnected ? `
+          <div class="content-card" style="align-items:center;text-align:center;padding:2.5rem;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:48px;height:48px;color:var(--accent);margin-bottom:.8rem;"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+            <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.5rem;">Autenticação necessária</div>
+            <p style="color:var(--muted);font-size:.85rem;max-width:380px;line-height:1.6;margin-bottom:1.5rem;">
+              Para importar fotos, tamanhos e estoque dos seus anúncios, autorize o acesso à sua conta do Mercado Livre.
+            </p>
+            <button class="btn btn-gold" id="btn-ml-conectar" style="padding:.9rem 2rem;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:17px;height:17px;"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+              Conectar com Mercado Livre
+            </button>
+          </div>
+        ` : `
+          <div class="content-card">
+            <div class="content-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;color:var(--accent)"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Buscar Anúncio
+            </div>
+            <div class="field">
+              <label>Link ou código do produto (MLB...)</label>
+              <input type="text" id="ml-input" placeholder="https://produto.mercadolivre.com.br/MLB-... ou MLB123456" />
+              <span class="field-hint">Funciona com o link completo ou apenas o código MLB.</span>
+            </div>
+            <div style="display:flex;gap:.7rem;align-items:center;">
+              <button class="btn btn-gold" id="btn-ml-buscar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Buscar
+              </button>
+              <span id="ml-status" style="font-size:.82rem;color:var(--muted);"></span>
+            </div>
+          </div>
+
+          <div id="ml-preview" style="display:none;flex-direction:column;gap:1.3rem;">
+            <div class="content-card">
+              <div class="content-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;color:var(--accent)"><rect x="3" y="3" width="18" height="12" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                Fotos (até 3)
+              </div>
+              <div id="ml-photos" style="display:flex;gap:.7rem;flex-wrap:wrap;"></div>
+              <span class="field-hint">Clique para selecionar/desmarcar.</span>
+            </div>
+            <div class="content-card">
+              <div class="content-card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px;color:var(--accent)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Dados do Produto
+              </div>
+              <div class="field"><label>Nome do Produto *</label><input type="text" id="ml-name" placeholder="Nome do anúncio" /></div>
+              <div class="form-row">
+                <div class="field"><label>Preço (R$) *</label><input type="number" id="ml-price" placeholder="0.00" min="0" step="0.01" /></div>
+                <div class="field"><label>Estoque (ML)</label><input type="number" id="ml-stock" readonly style="opacity:.6;cursor:not-allowed;" /></div>
+              </div>
+              <div class="form-row">
+                <div class="field"><label>Categoria *</label><select id="ml-category"><option value="">Selecione...</option></select></div>
+                <div class="field"><label>Badge</label><select id="ml-badge"><option value="">Nenhum</option><option value="novo">🆕 Novo</option><option value="promo">🔥 Promoção</option></select></div>
+              </div>
+              <div class="field">
+                <label>Tamanhos *</label>
+                <div class="size-picker-wrap" id="ml-size-picker"></div>
+                <div class="size-hint">Clique para selecionar/desmarcar</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:.8rem;">
+              <button class="btn btn-gold" id="btn-ml-importar" style="padding:.85rem 1.8rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Adicionar ao Catálogo
+              </button>
+              <button class="btn btn-outline" id="btn-ml-limpar">Limpar</button>
+            </div>
+          </div>
+        `}
+        </div>`;
+
+      document.getElementById('btn-ml-desconectar')?.addEventListener('click', () => { mlClearToken(); renderImportarPage(); });
+      document.getElementById('btn-ml-conectar')?.addEventListener('click', () => {
+        window.location.href = `https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=${ML_APP_ID}&redirect_uri=${encodeURIComponent(ML_REDIRECT)}`;
+      });
+
+      if (!isConnected) return;
+
+      // populate cats
+      getCategories().forEach(c => {
+        const o = document.createElement('option');
+        o.value = c.slug; o.textContent = c.name;
+        document.getElementById('ml-category').appendChild(o);
+      });
+
+      let mlPhotos = [], selectedPhotos = new Set(), mlSizesLocal = new Set();
+
+      function mlBestUrl(p) {
+        return (p.secure_url || p.url || '').replace('http://', 'https://').replace(/-[A-Z](\.(jpe?g|png|webp))$/i, '-O$1');
+      }
+
+      function renderPhotoGrid() {
+        const grid = document.getElementById('ml-photos');
+        grid.innerHTML = '';
+        mlPhotos.forEach((url, i) => {
+          const wrap = document.createElement('div');
+          wrap.style.cssText = 'position:relative;cursor:pointer;';
+          const img = document.createElement('img');
+          img.src = url;
+          img.style.cssText = `width:110px;height:110px;object-fit:cover;border-radius:6px;border:2px solid ${selectedPhotos.has(i)?'var(--accent)':'var(--border)'};transition:border .2s;`;
+          const check = document.createElement('div');
+          check.style.cssText = `position:absolute;top:5px;right:5px;width:20px;height:20px;background:${selectedPhotos.has(i)?'var(--accent)':'rgba(0,0,0,.5)'};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:${selectedPhotos.has(i)?'#000':'#fff'};font-weight:700;`;
+          check.textContent = selectedPhotos.has(i) ? '✓' : (i+1);
+          wrap.append(img, check);
+          wrap.addEventListener('click', () => {
+            if (selectedPhotos.has(i)) selectedPhotos.delete(i);
+            else { if (selectedPhotos.size >= 3) { toast('⚠️ Máximo 3 fotos.'); return; } selectedPhotos.add(i); }
+            renderPhotoGrid();
+          });
+          grid.appendChild(wrap);
+        });
+      }
+
+      function buildSizePickerLocal() {
+        const wrap = document.getElementById('ml-size-picker');
+        wrap.innerHTML = '';
+        ALL_SIZES.forEach(s => {
+          const chip = document.createElement('div');
+          chip.className = 'size-chip' + (mlSizesLocal.has(s) ? ' on' : '');
+          chip.textContent = s;
+          chip.addEventListener('click', () => { mlSizesLocal.has(s) ? mlSizesLocal.delete(s) : mlSizesLocal.add(s); chip.classList.toggle('on'); });
+          wrap.appendChild(chip);
+        });
+      }
+      buildSizePickerLocal();
+
+      function extractMLB(v) { const m = v.trim().match(/MLB[\-]?(\d+)/i); return m ? 'MLB'+m[1].replace('-','') : null; }
+
+      document.getElementById('btn-ml-buscar').addEventListener('click', async () => {
+        const code = extractMLB(document.getElementById('ml-input').value);
+        if (!code) { toast('⚠️ Código MLB não encontrado.'); return; }
+        const status = document.getElementById('ml-status');
+        status.textContent = 'Buscando...';
+        document.getElementById('btn-ml-buscar').disabled = true;
+        try {
+          const data = await mlApiFetch('/items/' + code);
+
+          // ── fotos: busca via endpoint dedicado (mais leve, corsproxy não trunca)
+          let picData = [];
+          try {
+            picData = await mlApiFetch('/items/' + code + '/pictures');
+          } catch(_) {}
+
+          // fallback: thumbnail do item
+          function picUrl(p) {
+            if (p.secure_url) return p.secure_url.replace('http://', 'https://');
+            if (p.url)        return p.url.replace('http://', 'https://');
+            if (p.id)         return `https://http2.mlstatic.com/D_NQ_NP_${p.id}-O.jpg`;
+            return '';
+          }
+
+          if (Array.isArray(picData) && picData.length) {
+            mlPhotos = picData.slice(0, 5).map(picUrl).filter(Boolean);
+          } else if (data.thumbnail) {
+            mlPhotos = [data.thumbnail.replace('http://', 'https://')];
+          }
+
+          console.log('[ML] /pictures:', JSON.stringify(picData?.slice(0,2)));
+          console.log('[ML] mlPhotos:', mlPhotos);
+
+          selectedPhotos = new Set(mlPhotos.slice(0, 3).map((_, i) => i));
+          document.getElementById('ml-name').value  = data.title  || '';
+          document.getElementById('ml-price').value = data.price  || '';
+          document.getElementById('ml-stock').value = data.available_quantity ?? 0;
+          const SA = ['SHOE_SIZE','SIZE','PANTS_SIZE','SHIRT_SIZE','APPAREL_SIZE','KIDS_SIZE'];
+          mlSizesLocal = new Set();
+          (data.variations||[]).forEach(v => {
+            if ((v.available_quantity||0)<=0) return;
+            (v.attribute_combinations||[]).forEach(a => {
+              if (!SA.includes(a.id)) return;
+              const m = (a.value_name||'').match(/^(\d+)/);
+              if (m && ALL_SIZES.includes(parseInt(m[1]))) mlSizesLocal.add(parseInt(m[1]));
+            });
+          });
+          buildSizePickerLocal();
+          renderPhotoGrid();
+          document.getElementById('ml-preview').style.display = 'flex';
+          status.textContent = '✅ Encontrado!' + (mlSizesLocal.size ? ` · ${mlSizesLocal.size} tamanho${mlSizesLocal.size>1?'s':''} importado${mlSizesLocal.size>1?'s':''}` : ' · Tamanhos não detectados');
+        } catch(e) {
+          status.textContent = '❌ ' + e.message;
+          if (e.message.includes('expirada')) renderImportarPage();
+        } finally { document.getElementById('btn-ml-buscar').disabled = false; }
+      });
+
+      document.getElementById('ml-input').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('btn-ml-buscar').click(); });
+
+      document.getElementById('btn-ml-importar').addEventListener('click', () => {
+        const name  = document.getElementById('ml-name').value.trim();
+        const price = parseFloat(document.getElementById('ml-price').value);
+        const cat   = document.getElementById('ml-category').value;
+        const badge = document.getElementById('ml-badge').value || null;
+        const sizes = [...mlSizesLocal].sort((a,b)=>a-b);
+        const imgs  = [...selectedPhotos].sort().map(i=>mlPhotos[i]);
+        const img   = imgs[0]||'';
+        if (!name)  { toast('⚠️ Informe o nome.'); return; }
+        if (!cat)   { toast('⚠️ Selecione categoria.'); return; }
+        if (isNaN(price)||price<=0) { toast('⚠️ Preço inválido.'); return; }
+        if (!img)   { toast('⚠️ Selecione uma foto.'); return; }
+        if (!sizes.length) { toast('⚠️ Selecione tamanhos.'); return; }
+        products.push({ id:nextId(products), name, category:cat, badge, price, oldPrice:null, img, imgs, sizes });
+        saveProducts(products);
+        toast('✅ "'+name+'" adicionado!');
+        document.getElementById('ml-input').value='';
+        document.getElementById('ml-status').textContent='';
+        document.getElementById('ml-preview').style.display='none';
+        mlPhotos=[]; selectedPhotos=new Set(); mlSizesLocal=new Set(); buildSizePickerLocal();
+      });
+
+      document.getElementById('btn-ml-limpar').addEventListener('click', () => {
+        document.getElementById('ml-input').value='';
+        document.getElementById('ml-status').textContent='';
+        document.getElementById('ml-preview').style.display='none';
+        mlPhotos=[]; selectedPhotos=new Set(); mlSizesLocal=new Set(); buildSizePickerLocal();
+      });
+    }
+
+    // ════════════════════════════════════
+    // CONTEÚDO PAGE
+    // ════════════════════════════════════
+    function getContent() {
+      try { return JSON.parse(localStorage.getItem('cc_content') || '{}'); } catch { return {}; }
+    }
+    function saveContent(obj) { localStorage.setItem('cc_content', JSON.stringify(obj)); }
+
+    function renderConteudoPage() {
+      const c = getContent();
+      document.getElementById('main-content').innerHTML = `
+        <div class="page-header">
+          <div><div class="page-title">Conteúdo do Site</div><div class="page-sub">Textos exibidos no site para os clientes</div></div>
+          <button class="btn btn-gold" id="btn-save-content">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            Salvar Tudo
+          </button>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:1.3rem;max-width:680px;">
+
+          <!-- GERAL -->
+          <div class="content-card">
+            <div class="content-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+              Geral
+            </div>
+            <div class="field">
+              <label>Nome da Loja</label>
+              <input type="text" id="c-storeName" placeholder="Casual Calçados" value="${esc(c.storeName||'Casual Calçados')}" />
+              <span class="field-hint">A última palavra fica destacada em dourado no logo.</span>
+            </div>
+          </div>
+
+          <!-- HERO -->
+          <div class="content-card">
+            <div class="content-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+              Seção Principal (Hero)
+            </div>
+            <div class="field">
+              <label>Texto acima do título</label>
+              <input type="text" id="c-heroEyebrow" placeholder="Nova Coleção 2025" value="${esc(c.heroEyebrow||'Nova Coleção 2025')}" />
+            </div>
+            <div class="field">
+              <label>Título</label>
+              <input type="text" id="c-heroTitle" placeholder="Estilo que caminha com você" value="${esc(c.heroTitle||'Estilo que caminha<br><em>com você</em>')}" />
+              <span class="field-hint">Use &lt;br&gt; para quebra de linha e &lt;em&gt;palavra&lt;/em&gt; para itálico dourado.</span>
+            </div>
+            <div class="field">
+              <label>Subtítulo</label>
+              <textarea id="c-heroSub" rows="2" placeholder="Os melhores calçados...">${esc(c.heroSub||'Os melhores calçados com preços imperdíveis. Do casual ao elegante, encontre o par perfeito para cada momento.')}</textarea>
+            </div>
+            <div class="content-card-title" style="font-size:.75rem;margin-top:.5rem;">Estatísticas</div>
+            <div class="form-row3">
+              <div class="field"><label>Valor 1</label><input type="text" id="c-stat1Val" placeholder="200+" value="${esc(c.stat1Val||'200+')}" /></div>
+              <div class="field"><label>Legenda 1</label><input type="text" id="c-stat1Label" placeholder="Modelos" value="${esc(c.stat1Label||'Modelos')}" /></div>
+            </div>
+            <div class="form-row3">
+              <div class="field"><label>Valor 2</label><input type="text" id="c-stat2Val" placeholder="5★" value="${esc(c.stat2Val||'5★')}" /></div>
+              <div class="field"><label>Legenda 2</label><input type="text" id="c-stat2Label" placeholder="Avaliação" value="${esc(c.stat2Label||'Avaliação')}" /></div>
+            </div>
+            <div class="form-row3">
+              <div class="field"><label>Valor 3</label><input type="text" id="c-stat3Val" placeholder="48h" value="${esc(c.stat3Val||'48h')}" /></div>
+              <div class="field"><label>Legenda 3</label><input type="text" id="c-stat3Label" placeholder="Entrega" value="${esc(c.stat3Label||'Entrega')}" /></div>
+            </div>
+          </div>
+
+          <!-- BANNER PROMO -->
+          <div class="content-card">
+            <div class="content-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              Banner de Promoção
+            </div>
+            <div class="field">
+              <label>Título do Banner</label>
+              <input type="text" id="c-promoTitle" placeholder="🔥 Liquidação de Inverno — até 40% OFF" value="${esc(c.promoTitle||'🔥 Liquidação de Inverno — até 40% OFF')}" />
+            </div>
+            <div class="field">
+              <label>Subtítulo do Banner</label>
+              <input type="text" id="c-promoSub" placeholder="Promoções por tempo limitado." value="${esc(c.promoSub||'Promoções por tempo limitado. Aproveite enquanto durar o estoque!')}" />
+            </div>
+            <div class="field">
+              <label>Texto do Botão</label>
+              <input type="text" id="c-promoBtnText" placeholder="Ver Promoções" value="${esc(c.promoBtnText||'Ver Promoções')}" />
+            </div>
+          </div>
+
+          <!-- RODAPÉ -->
+          <div class="content-card">
+            <div class="content-card-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+              Rodapé
+            </div>
+            <div class="field">
+              <label>Horário de Atendimento</label>
+              <input type="text" id="c-footerHours" placeholder="Atendimento via WhatsApp · Segunda a Sábado, 9h às 18h" value="${esc(c.footerHours||'Atendimento via WhatsApp · Segunda a Sábado, 9h às 18h')}" />
+            </div>
+            <div class="field">
+              <label>Texto de Copyright</label>
+              <input type="text" id="c-footerCopy" placeholder="© 2025 Casual Calçados — Todos os direitos reservados" value="${esc(c.footerCopy||'© 2025 Casual Calçados — Todos os direitos reservados')}" />
+            </div>
+          </div>
+
+        </div>`;
+
+      document.getElementById('btn-save-content').addEventListener('click', () => {
+        const updated = {
+          storeName:    document.getElementById('c-storeName').value.trim(),
+          heroEyebrow:  document.getElementById('c-heroEyebrow').value.trim(),
+          heroTitle:    document.getElementById('c-heroTitle').value.trim(),
+          heroSub:      document.getElementById('c-heroSub').value.trim(),
+          stat1Val:     document.getElementById('c-stat1Val').value.trim(),
+          stat1Label:   document.getElementById('c-stat1Label').value.trim(),
+          stat2Val:     document.getElementById('c-stat2Val').value.trim(),
+          stat2Label:   document.getElementById('c-stat2Label').value.trim(),
+          stat3Val:     document.getElementById('c-stat3Val').value.trim(),
+          stat3Label:   document.getElementById('c-stat3Label').value.trim(),
+          promoTitle:   document.getElementById('c-promoTitle').value.trim(),
+          promoSub:     document.getElementById('c-promoSub').value.trim(),
+          promoBtnText: document.getElementById('c-promoBtnText').value.trim(),
+          footerHours:  document.getElementById('c-footerHours').value.trim(),
+          footerCopy:   document.getElementById('c-footerCopy').value.trim(),
+          footerName:   document.getElementById('c-storeName').value.trim(),
+        };
+        saveContent(updated);
+        toast('✅ Conteúdo salvo! Atualize o site para ver as alterações.');
+      });
+    }
+
+    // ════════════════════════════════════
+    // PRODUCTS PAGE
+    // ════════════════════════════════════
+    function renderProductsPage() {
+      const mc = document.getElementById('main-content');
+      if (!document.getElementById('products-page')) {
+        mc.innerHTML = `
+          <div id="products-page">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Produtos</div>
+                <div class="page-sub" id="prod-sub"></div>
+              </div>
+              <button class="btn btn-gold" id="btn-add-product">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Novo Produto
+              </button>
+            </div>
+            <div class="stats-row" id="stats-row"></div>
+            <div class="toolbar">
+              <div class="search-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input id="search-input" type="text" placeholder="Buscar produto..." />
+              </div>
+              <select id="filter-cat-select"></select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Badge</th><th>Tamanhos</th><th>Ações</th></tr>
+                </thead>
+                <tbody id="products-tbody"></tbody>
+              </table>
+            </div>
+          </div>`;
+
+        document.getElementById('btn-add-product').addEventListener('click', openAddModal);
+        document.getElementById('search-input').addEventListener('input', function() {
+          searchQ = this.value; refreshProductsData();
+        });
+        document.getElementById('filter-cat-select').addEventListener('change', function() {
+          filterCat = this.value; refreshProductsData();
+        });
+      }
+      document.getElementById('search-input').value = searchQ;
+      buildCatFilter();
+      refreshProductsData();
+    }
+
+    function buildCatFilter() {
+      const sel  = document.getElementById('filter-cat-select');
+      if (!sel) return;
+      const cats = getCategories();
+      sel.innerHTML = `<option value="todos">Todas as categorias</option>` +
+        cats.map(c => `<option value="${esc(c.slug)}"${filterCat===c.slug?' selected':''}>${esc(c.name)}</option>`).join('');
+    }
+
+    function refreshProductsData() {
+      const total  = products.length;
+      const promos = products.filter(p => p.oldPrice || p.badge==='promo').length;
+      const ncats  = [...new Set(products.map(p => p.category))].length;
+
+      document.getElementById('prod-sub').textContent =
+        `${total} produto${total!==1?'s':''} cadastrado${total!==1?'s':''}`;
+      document.getElementById('stats-row').innerHTML = `
+        <div class="stat-card"><div class="stat-card-label">Total</div><div class="stat-card-value gold">${total}</div></div>
+        <div class="stat-card"><div class="stat-card-label">Em Promoção</div><div class="stat-card-value red">${promos}</div></div>
+        <div class="stat-card"><div class="stat-card-label">Categorias Usadas</div><div class="stat-card-value">${ncats}</div></div>`;
+
+      const list = products.filter(p => {
+        const mQ   = !searchQ || p.name.toLowerCase().includes(searchQ.toLowerCase());
+        const mCat = filterCat==='todos' || p.category===filterCat;
+        return mQ && mCat;
+      });
+
+      const rows = list.length === 0
+        ? `<tr><td colspan="6"><div class="empty-state"><strong>Nenhum produto encontrado</strong>Ajuste os filtros ou adicione produtos.</div></td></tr>`
+        : list.map(p => `
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="${esc(p.img)}" alt="${esc(p.name)}"
+                onerror="this.style.background='#1a1a1a'" />
+              <span class="td-name">${esc(p.name)}</span>
+            </div></td>
+            <td><span class="td-cat">${esc(catName(p.category))}</span></td>
+            <td>
+              <span class="td-price">${fmt(p.price)}</span>
+              ${p.oldPrice ? `<span class="td-price-old">${fmt(p.oldPrice)}</span>` : ''}
+            </td>
+            <td>
+              ${p.badge==='promo' ? '<span class="td-badge badge-promo">Promoção</span>'
+                : p.badge==='novo' ? '<span class="td-badge badge-novo">Novo</span>'
+                : '<span class="badge-none">—</span>'}
+            </td>
+            <td><span class="td-sizes">${p.sizes.join(', ')}</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="${p.id}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="${p.id}" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+              </button>
+            </div></td>
+          </tr>`).join('');
+
+      const tbody = document.getElementById('products-tbody');
+      tbody.innerHTML = rows;
+      tbody.querySelectorAll('[data-edit]').forEach(b =>
+        b.addEventListener('click', () => openEditModal(Number(b.dataset.edit))));
+      tbody.querySelectorAll('[data-delete]').forEach(b =>
+        b.addEventListener('click', () => confirmDeleteProduct(Number(b.dataset.delete))));
+    }
+
+    // ════════════════════════════════════
+    // PRODUCT MODAL
+    // ════════════════════════════════════
+    function populateCatSelect(currentSlug) {
+      const sel  = document.getElementById('form-category');
+      const cats = getCategories();
+      sel.innerHTML = `<option value="">Selecione...</option>` +
+        cats.map(c => `<option value="${esc(c.slug)}"${currentSlug===c.slug?' selected':''}>${esc(c.name)}</option>`).join('');
+    }
+
+    function buildSizePicker() {
+      const wrap = document.getElementById('size-picker');
+      wrap.innerHTML = '';
+      ALL_SIZES.forEach(s => {
+        const chip = document.createElement('div');
+        chip.className = 'size-chip' + (formSizes.has(s) ? ' on' : '');
+        chip.textContent = s;
+        chip.addEventListener('click', () => {
+          formSizes.has(s) ? formSizes.delete(s) : formSizes.add(s);
+          chip.classList.toggle('on');
+        });
+        wrap.appendChild(chip);
+      });
+    }
+
+    function buildImgFields(urlList) {
+      const container = document.getElementById('img-fields');
+      container.innerHTML = '';
+      const urls = urlList && urlList.length ? urlList : [''];
+      urls.forEach((url, idx) => addImgFieldRow(url, idx));
+      updateAddImgBtn();
+    }
+
+    function addImgFieldRow(url, idx) {
+      const container = document.getElementById('img-fields');
+      const row = document.createElement('div');
+      row.className = 'img-field-row';
+      row.dataset.idx = idx;
+
+      const label = idx === 0 ? ' placeholder="Foto principal (obrigatória) https://..."' : ' placeholder="Foto extra https://..."';
+      row.innerHTML = `
+        <img class="img-field-thumb${url?' show':''}" src="${url||''}" alt="preview" />
+        <input type="url"${label} value="${url||''}" />
+        ${idx > 0 ? `<button type="button" class="img-field-remove" title="Remover foto">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>` : ''}`;
+
+      const input = row.querySelector('input');
+      const thumb = row.querySelector('img');
+      input.addEventListener('input', function() {
+        if (this.value) { thumb.src = this.value; thumb.classList.add('show'); }
+        else thumb.classList.remove('show');
+      });
+
+      const removeBtn = row.querySelector('.img-field-remove');
+      if (removeBtn) {
+        removeBtn.addEventListener('click', () => {
+          row.remove();
+          rebuildImgIndexes();
+          updateAddImgBtn();
+        });
+      }
+
+      container.appendChild(row);
+    }
+
+    function rebuildImgIndexes() {
+      document.querySelectorAll('#img-fields .img-field-row').forEach((r, i) => { r.dataset.idx = i; });
+    }
+
+    function updateAddImgBtn() {
+      const btn   = document.getElementById('btn-add-img-field');
+      const count = document.querySelectorAll('#img-fields .img-field-row').length;
+      if (btn) btn.style.display = count >= 3 ? 'none' : '';
+    }
+
+    function getImgValues() {
+      return [...document.querySelectorAll('#img-fields .img-field-row input')]
+        .map(i => i.value.trim()).filter(Boolean);
+    }
+
+    function openAddModal() {
+      formSizes = new Set();
+      document.getElementById('form-id').value        = '';
+      document.getElementById('form-name').value      = '';
+      document.getElementById('form-badge').value     = '';
+      document.getElementById('form-price').value     = '';
+      document.getElementById('form-old-price').value = '';
+      document.getElementById('modal-title').textContent = 'Novo Produto';
+      populateCatSelect('');
+      buildSizePicker();
+      buildImgFields([]);
+      document.getElementById('product-modal').classList.add('open');
+      setTimeout(() => document.getElementById('form-name').focus(), 50);
+    }
+
+    function openEditModal(id) {
+      const p = products.find(x => x.id === id);
+      if (!p) return;
+      formSizes = new Set(p.sizes);
+      document.getElementById('form-id').value        = p.id;
+      document.getElementById('form-name').value      = p.name;
+      document.getElementById('form-badge').value     = p.badge || '';
+      document.getElementById('form-price').value     = p.price;
+      document.getElementById('form-old-price').value = p.oldPrice || '';
+      document.getElementById('modal-title').textContent = 'Editar Produto';
+      populateCatSelect(p.category);
+      buildSizePicker();
+      // Build image fields: prefer imgs array, fallback to img string
+      const imgList = Array.isArray(p.imgs) && p.imgs.length ? p.imgs : (p.img ? [p.img] : []);
+      buildImgFields(imgList);
+      document.getElementById('product-modal').classList.add('open');
+    }
+
+    function closeProductModal() { document.getElementById('product-modal').classList.remove('open'); }
+
+    function saveProductModal() {
+      const id    = document.getElementById('form-id').value;
+      const name  = document.getElementById('form-name').value.trim();
+      const cat   = document.getElementById('form-category').value;
+      const badge = document.getElementById('form-badge').value || null;
+      const price = parseFloat(document.getElementById('form-price').value);
+      const oldP  = parseFloat(document.getElementById('form-old-price').value) || null;
+      const sizes = [...formSizes].sort((a,b) => a-b);
+      const imgs  = getImgValues();
+      const img   = imgs[0] || '';   // keep legacy img field for compatibility
+
+      if (!name)                  { toast('⚠️ Informe o nome do produto.');      return; }
+      if (!cat)                   { toast('⚠️ Selecione uma categoria.');         return; }
+      if (isNaN(price)||price<=0) { toast('⚠️ Informe um preço válido.');         return; }
+      if (!img)                   { toast('⚠️ Informe ao menos a foto principal.'); return; }
+      if (!sizes.length)          { toast('⚠️ Selecione pelo menos um tamanho.');  return; }
+
+      if (id) {
+        const idx = products.findIndex(p => p.id === Number(id));
+        if (idx > -1) products[idx] = { ...products[idx], name, category:cat, badge, price, oldPrice:oldP, img, imgs, sizes };
+        toast('✅ Produto atualizado!');
+      } else {
+        products.push({ id: nextId(products), name, category:cat, badge, price, oldPrice:oldP, img, imgs, sizes });
+        toast('✅ Produto adicionado!');
+      }
+      saveProducts(products);
+      closeProductModal();
+      refreshProductsData();
+    }
+
+    // ── confirm delete product
+    function confirmDeleteProduct(id) {
+      const p = products.find(x => x.id === id);
+      document.getElementById('confirm-icon').textContent  = '🗑️';
+      document.getElementById('confirm-title').textContent = 'Excluir produto?';
+      document.getElementById('confirm-sub').textContent   = `"${p?.name}" será removido permanentemente.`;
+      confirmCb = () => {
+        products = products.filter(x => x.id !== id);
+        saveProducts(products);
+        toast('🗑️ Produto excluído.');
+        closeConfirm();
+        refreshProductsData();
+      };
+      document.getElementById('confirm-modal').classList.add('open');
+    }
+
+    // ════════════════════════════════════
+    // CATEGORIES PAGE
+    // ════════════════════════════════════
+    function renderCategoriesPage() {
+      document.getElementById('main-content').innerHTML = `
+        <div id="categories-page">
+          <div class="page-header">
+            <div>
+              <div class="page-title">Categorias</div>
+              <div class="page-sub" id="cat-page-sub"></div>
+            </div>
+            <button class="btn btn-gold" id="btn-new-cat">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Nova Categoria
+            </button>
+          </div>
+          <div class="cat-list" id="cat-list"></div>
+        </div>`;
+      document.getElementById('btn-new-cat').addEventListener('click', () => openCatModal(null));
+      refreshCatsPage();
+    }
+
+    function refreshCatsPage() {
+      const cats = getCategories();
+      const sub  = document.getElementById('cat-page-sub');
+      if (sub) sub.textContent = `${cats.length} categorias cadastradas`;
+      const list = document.getElementById('cat-list');
+      if (!list) return;
+
+      if (!cats.length) {
+        list.innerHTML = `<div class="empty-state"><strong>Nenhuma categoria</strong>Crie categorias para organizar seus produtos.</div>`;
+        return;
+      }
+
+      const isDefault = slug => DEFAULT_CATEGORIES.some(c => c.slug === slug);
+
+      list.innerHTML = cats.map(c => {
+        const count = products.filter(p => p.category === c.slug).length;
+        return `<div class="cat-row">
+          <div class="cat-dot"></div>
+          <div class="cat-name">${esc(c.name)}</div>
+          <span class="cat-slug-pill">${esc(c.slug)}</span>
+          <span class="cat-count-label">${count} produto${count!==1?'s':''}</span>
+          ${isDefault(c.slug) ? '<span class="cat-default-badge">padrão</span>' : ''}
+          <div class="cat-actions">
+            <button class="btn btn-outline btn-sm" data-edit-cat="${esc(c.slug)}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Editar
+            </button>
+            <button class="btn btn-danger btn-sm btn-icon" data-delete-cat="${esc(c.slug)}" title="Excluir">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+            </button>
+          </div>
+        </div>`;
+      }).join('');
+
+      list.querySelectorAll('[data-edit-cat]').forEach(b =>
+        b.addEventListener('click', () => openCatModal(b.dataset.editCat)));
+      list.querySelectorAll('[data-delete-cat]').forEach(b =>
+        b.addEventListener('click', () => confirmDeleteCat(b.dataset.deleteCat)));
+    }
+
+    // ── CATEGORY MODAL
+    function openCatModal(slugToEdit) {
+      const cats   = getCategories();
+      const isEdit = !!slugToEdit;
+      const cat    = isEdit ? cats.find(c => c.slug === slugToEdit) : null;
+
+      document.getElementById('cat-modal-title').textContent     = isEdit ? 'Editar Categoria' : 'Nova Categoria';
+      document.getElementById('cat-form-original-slug').value    = isEdit ? slugToEdit : '';
+      document.getElementById('cat-form-name').value             = isEdit ? cat?.name  : '';
+      document.getElementById('cat-form-slug').value             = isEdit ? cat?.slug  : '';
+      document.getElementById('cat-modal').classList.add('open');
+      setTimeout(() => document.getElementById('cat-form-name').focus(), 50);
+    }
+
+    function closeCatModal() { document.getElementById('cat-modal').classList.remove('open'); }
+
+    function saveCatModal() {
+      const name     = document.getElementById('cat-form-name').value.trim();
+      const slug     = document.getElementById('cat-form-slug').value.trim();
+      const original = document.getElementById('cat-form-original-slug').value;
+
+      if (!name) { toast('⚠️ Informe o nome da categoria.'); return; }
+      if (!slug) { toast('⚠️ O slug não pode ser vazio.'); return; }
+      if (!/^[a-z0-9-]+$/.test(slug)) { toast('⚠️ Slug inválido. Use só letras minúsculas, números e hífens.'); return; }
+
+      let cats   = getCategories();
+      const isEdit = !!original;
+      const collision = cats.some(c => c.slug === slug && c.slug !== original);
+      if (collision) { toast('⚠️ Já existe uma categoria com esse slug.'); return; }
+
+      if (isEdit) {
+        // If slug changed, update all products using old slug
+        if (slug !== original) {
+          products = products.map(p => p.category === original ? { ...p, category: slug } : p);
+          saveProducts(products);
+        }
+        cats = cats.map(c => c.slug === original ? { slug, name } : c);
+        toast('✅ Categoria atualizada!');
+      } else {
+        cats.push({ slug, name });
+        toast('✅ Categoria criada!');
+      }
+      saveCategories(cats);
+      closeCatModal();
+      refreshCatsPage();
+      // Rebuild filter select if on products page
+      buildCatFilter();
+    }
+
+    // ── confirm delete category
+    function confirmDeleteCat(slug) {
+      const cats  = getCategories();
+      const cat   = cats.find(c => c.slug === slug);
+      const count = products.filter(p => p.category === slug).length;
+
+      document.getElementById('confirm-icon').textContent  = '⚠️';
+      document.getElementById('confirm-title').textContent = 'Excluir categoria?';
+      document.getElementById('confirm-sub').textContent   = count > 0
+        ? `"${cat?.name}" possui ${count} produto${count!==1?'s':''} vinculado${count!==1?'s':''}. Os produtos ficarão sem categoria.`
+        : `"${cat?.name}" será removida permanentemente.`;
+      confirmCb = () => {
+        saveCategories(cats.filter(c => c.slug !== slug));
+        toast('🗑️ Categoria excluída.');
+        closeConfirm();
+        refreshCatsPage();
+        buildCatFilter();
+      };
+      document.getElementById('confirm-modal').classList.add('open');
+    }
+
+    // ── CONFIRM GENERIC
+    function closeConfirm() {
+      document.getElementById('confirm-modal').classList.remove('open');
+      confirmCb = null;
+    }
+
+    // ════════════════════════════════════
+    // CONFIG PAGE
+    // ════════════════════════════════════
+    function renderConfigPage() {
+      const wpp = localStorage.getItem('cc_whatsapp') || '555183161878';
+      document.getElementById('main-content').innerHTML = `
+        <div class="page-header">
+          <div><div class="page-title">Configurações</div><div class="page-sub">Ajustes gerais da loja</div></div>
+        </div>
+        <div style="max-width:480px;display:flex;flex-direction:column;gap:1.3rem;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;display:flex;flex-direction:column;gap:1rem;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;">WhatsApp</div>
+            <div class="field">
+              <label>Número (DDI+DDD+número, sem espaços)</label>
+              <input type="text" id="cfg-wpp" placeholder="555183161878" value="${esc(wpp)}" />
+            </div>
+            <button class="btn btn-gold" style="align-self:flex-start" id="btn-save-config">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Salvar
+            </button>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.5rem;display:flex;flex-direction:column;gap:1rem;">
+            <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;">Dados</div>
+            <p style="color:var(--muted);font-size:.85rem;line-height:1.6;">Exporte os produtos como JSON para backup ou migração.</p>
+            <div style="display:flex;gap:.7rem;flex-wrap:wrap;">
+              <button class="btn btn-green" id="btn-export">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Exportar JSON
+              </button>
+              <label class="btn btn-green" style="cursor:pointer;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Importar JSON
+                <input type="file" id="btn-import-json" accept=".json" style="display:none;" />
+              </label>
+              <button class="btn btn-danger" id="btn-reset">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+                Resetar Produtos
+              </button>
+            </div>
+          </div>
+        </div>`;
+
+      document.getElementById('btn-save-config').addEventListener('click', () => {
+        localStorage.setItem('cc_whatsapp', document.getElementById('cfg-wpp').value.trim());
+        toast('✅ Configurações salvas!');
+      });
+      document.getElementById('btn-export').addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(products, null, 2)], { type:'application/json' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+        a.download = 'casual-calcados-produtos.json'; a.click(); URL.revokeObjectURL(a.href);
+      });
+      document.getElementById('btn-import-json').addEventListener('change', function() {
+        const file = this.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const imported = JSON.parse(e.target.result);
+            if (!Array.isArray(imported)) throw new Error('Formato inválido');
+            const existing = new Map(products.map(p => [p._ml_id || p.name, p]));
+            let added = 0, updated = 0;
+            imported.forEach(p => {
+              const key = p._ml_id || p.name;
+              if (existing.has(key)) {
+                const ex = existing.get(key);
+                existing.set(key, { ...p, id: ex.id, category: ex.category || p.category, sizes: ex.sizes.length ? ex.sizes : p.sizes });
+                updated++;
+              } else {
+                p.id = nextId([...existing.values()]);
+                existing.set(key, p);
+                added++;
+              }
+            });
+            products = [...existing.values()];
+            saveProducts(products);
+            toast(`✅ Importado! ${added} novo(s), ${updated} atualizado(s).`);
+          } catch(err) {
+            toast('❌ Erro ao importar: ' + err.message);
+          }
+        };
+        reader.readAsText(file);
+        this.value = '';
+      });
+      document.getElementById('btn-reset').addEventListener('click', () => {
+        if (!confirm('Resetar todos os produtos para o catálogo padrão?')) return;
+        localStorage.removeItem('cc_products');
+        products = getProducts();
+        toast('♻️ Produtos resetados.');
+        renderPage();
+      });
+    }
+
+    // ════════════════════════════════════
+    // BOOT — wire static events
+    // ════════════════════════════════════
+    document.getElementById('login-btn').addEventListener('click', doLogin);
+    document.getElementById('login-pass').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+    function doLogin() {
+      const u = document.getElementById('login-user').value.trim();
+      const p = document.getElementById('login-pass').value;
+      if (u === ADMIN_USER && p === ADMIN_PASS) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('admin-screen').classList.add('visible');
+        renderPage();
+      } else {
+        document.getElementById('login-error').classList.add('show');
+      }
+    }
+
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      document.getElementById('admin-screen').classList.remove('visible');
+      document.getElementById('login-screen').style.display = 'flex';
+      document.getElementById('login-pass').value = '';
+      document.getElementById('main-content').innerHTML = '';
+    });
+
+    // Product modal
+    document.getElementById('modal-close-btn').addEventListener('click', closeProductModal);
+    document.getElementById('modal-cancel-btn').addEventListener('click', closeProductModal);
+    document.getElementById('modal-save-btn').addEventListener('click', saveProductModal);
+    document.getElementById('product-modal').addEventListener('click', e => {
+      if (e.target === document.getElementById('product-modal')) closeProductModal();
+    });
+    document.getElementById('btn-add-img-field').addEventListener('click', () => {
+      const count = document.querySelectorAll('#img-fields .img-field-row').length;
+      if (count >= 3) return;
+      addImgFieldRow('', count);
+      updateAddImgBtn();
+    });
+
+    // Category modal
+    document.getElementById('cat-modal-close').addEventListener('click', closeCatModal);
+    document.getElementById('cat-modal-cancel').addEventListener('click', closeCatModal);
+    document.getElementById('cat-modal-save').addEventListener('click', saveCatModal);
+    document.getElementById('cat-modal').addEventListener('click', e => {
+      if (e.target === document.getElementById('cat-modal')) closeCatModal();
+    });
+    // Auto-generate slug from name input
+    document.getElementById('cat-form-name').addEventListener('input', function() {
+      const slugField = document.getElementById('cat-form-slug');
+      const original  = document.getElementById('cat-form-original-slug').value;
+      // Auto-fill only when adding new OR when slug still matches auto-gen
+      const prevAuto  = slugify(original || '');
+      if (!original || slugField.value === prevAuto) {
+        slugField.value = slugify(this.value);
+      }
+    });
+
+    // Confirm dialog
+    document.getElementById('confirm-cancel').addEventListener('click', closeConfirm);
+    document.getElementById('confirm-ok').addEventListener('click', () => { if(confirmCb) confirmCb(); });
+    document.getElementById('confirm-modal').addEventListener('click', e => {
+      if (e.target === document.getElementById('confirm-modal')) closeConfirm();
+    });
+
+    // Sidebar
+    document.querySelectorAll('#sidebar .sidebar-btn[data-page]').forEach(btn => {
+      btn.addEventListener('click', () => { currentPage = btn.dataset.page; renderPage(); });
+    });
+
+    // Escape closes any open modal
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      if (document.getElementById('product-modal').classList.contains('open')) closeProductModal();
+      if (document.getElementById('cat-modal').classList.contains('open')) closeCatModal();
+      if (document.getElementById('confirm-modal').classList.contains('open')) closeConfirm();
+    });
+  </script>
+</body>
+</html>
