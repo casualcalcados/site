@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- saved from url=(0046)https://digoraupp1-lang.github.io/claude/admin -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin — Casual Calçados</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link href="./Admin — Casual Calçados_files/css2" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -326,7 +326,7 @@
 <body>
 
   <!-- LOGIN -->
-  <div id="login-screen">
+  <div id="login-screen" style="display: none;">
     <div class="login-box">
       <div class="login-logo">
         <h1>Casual <span>Calçados</span></h1>
@@ -334,11 +334,11 @@
       </div>
       <div class="field">
         <label>Usuário</label>
-        <input type="text" id="login-user" placeholder="admin" autocomplete="username" />
+        <input type="text" id="login-user" placeholder="admin" autocomplete="username">
       </div>
       <div class="field">
         <label>Senha</label>
-        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" />
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
       </div>
       <div class="login-error" id="login-error">Usuário ou senha incorretos.</div>
       <button class="btn btn-gold btn-full" id="login-btn" style="padding:.85rem">Entrar</button>
@@ -350,17 +350,17 @@
   </div>
 
   <!-- ADMIN -->
-  <div id="admin-screen">
+  <div id="admin-screen" class="visible">
     <div class="topbar">
       <div class="topbar-logo">Casual <span>Calçados</span><small>Admin</small></div>
       <div class="topbar-right">
         <span class="admin-badge">● Logado</span>
-        <a href="index.html" target="_blank" class="btn btn-outline btn-sm">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <a href="https://digoraupp1-lang.github.io/claude/index.html" target="_blank" class="btn btn-outline btn-sm">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           Ver Site
         </a>
         <button class="btn btn-outline btn-sm" id="logout-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
           Sair
         </button>
       </div>
@@ -370,27 +370,898 @@
       <nav class="sidebar" id="sidebar">
         <div class="sidebar-section">Menu</div>
         <button class="sidebar-btn active" data-page="produtos">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
           Produtos
         </button>
         <button class="sidebar-btn" data-page="categorias">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"></path></svg>
           Categorias
         </button>
         <button class="sidebar-btn" data-page="conteudo">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
           Conteúdo
         </button>
         <button class="sidebar-btn" data-page="importar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
           Importar ML
         </button>
         <button class="sidebar-btn" data-page="config">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"></path></svg>
           Configurações
         </button>
       </nav>
-      <main class="main-content" id="main-content"></main>
+      <main class="main-content" id="main-content">
+          <div id="products-page">
+            <div class="page-header">
+              <div>
+                <div class="page-title">Produtos</div>
+                <div class="page-sub" id="prod-sub">35 produtos cadastrados</div>
+              </div>
+              <button class="btn btn-gold" id="btn-add-product">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Novo Produto
+              </button>
+            </div>
+            <div class="stats-row" id="stats-row">
+        <div class="stat-card"><div class="stat-card-label">Total</div><div class="stat-card-value gold">35</div></div>
+        <div class="stat-card"><div class="stat-card-label">Em Promoção</div><div class="stat-card-value red">35</div></div>
+        <div class="stat-card"><div class="stat-card-label">Categorias Usadas</div><div class="stat-card-value">1</div></div></div>
+            <div class="toolbar">
+              <div class="search-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input id="search-input" type="text" placeholder="Buscar produto...">
+              </div>
+              <select id="filter-cat-select"><option value="todos">Todas as categorias</option><option value="masculino">Masculino</option><option value="feminino">Feminino</option><option value="infantil">Infantil</option></select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>Produto</th><th>Categoria</th><th>Preço</th><th>Badge</th><th>Tamanhos</th><th>Ações</th></tr>
+                </thead>
+                <tbody id="products-tbody">
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_629263-MLA109291434181_032026-O.jpg" alt="Sandália Feminina Vizzano 6464.102 Salto Taça Bloco Nude Nude 39 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Feminina Vizzano 6464.102 Salto Taça Bloco Nude Nude 39 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 79,90</span>
+              <span class="td-price-old">R$ 169,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">35, 37, 38, 39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="9">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="9" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_799169-MLB108514266226_032026-O.jpg" alt="Chinelo Tamanco Flatform Zaxy Link 19276 Off White Dourado Off White" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Chinelo Tamanco Flatform Zaxy Link 19276 Off White Dourado Off White</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 59,90</span>
+              <span class="td-price-old">R$ 119,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="13">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="13" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_879369-MLA108492987132_032026-O.jpg" alt="Sandália Casual Salto Baixo Bloco Moleca 5289.805 Preta" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Casual Salto Baixo Bloco Moleca 5289.805 Preta</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 69,90</span>
+              <span class="td-price-old">R$ 139,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34, 36, 37, 38</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="14">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="14" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_912345-MLA108490901646_032026-O.jpg" alt="Papete Sandália Moleca 5556.104 Branco Off White De Amarrar" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Papete Sandália Moleca 5556.104 Branco Off White De Amarrar</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 69,90</span>
+              <span class="td-price-old">R$ 139,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34, 36</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="15">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="15" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_887151-MLA108490885884_032026-O.jpg" alt="Tamanco Modare Nude Ultraconforto Salto Bloco 7187.110" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Tamanco Modare Nude Ultraconforto Salto Bloco 7187.110</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 89,90</span>
+              <span class="td-price-old">R$ 179,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34, 35</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="16">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="16" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_944174-MLA109292703573_032026-O.jpg" alt="Sandália Anabela Beira Rio Conforto 8527.111 Nude Com Tiras Nude" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Anabela Beira Rio Conforto 8527.111 Nude Com Tiras Nude</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 49,90</span>
+              <span class="td-price-old">R$ 109,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="17">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="17" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_654577-MLB108492755862_032026-O.jpg" alt="Tamanco Vizzano 6428.148 Pelica Preto Salto Bloco Baixo Preto" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Tamanco Vizzano 6428.148 Pelica Preto Salto Bloco Baixo Preto</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 79,90</span>
+              <span class="td-price-old">R$ 159,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="18">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="18" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_630657-MLB109292814735_032026-O.jpg" alt="Sandália Vizzano 6428.104 Pelica Preto Salto Bloco Baixo Preto" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Vizzano 6428.104 Pelica Preto Salto Bloco Baixo Preto</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 84,90</span>
+              <span class="td-price-old">R$ 169,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">37</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="19">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="19" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_865419-MLA95734315120_102025-O.jpg" alt="Sandália Feminina Pelica Com Tiras Vizzano Preto Liso" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Feminina Pelica Com Tiras Vizzano Preto Liso</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 87,90</span>
+              <span class="td-price-old">R$ 174,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">35</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="20">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="20" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_979891-MLA108492999914_032026-O.jpg" alt="Sandália Vizzano 6454.103 Preta Salto Bloco Baixo Com Tiras Preto 35 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Vizzano 6454.103 Preta Salto Bloco Baixo Com Tiras Preto 35 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 87,90</span>
+              <span class="td-price-old">R$ 174,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">35</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="21">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="21" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_807881-MLA108492962200_032026-O.jpg" alt="Tamanco Salto Baixinho Bloco Moleca 5259.875 Nude Verniz" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Tamanco Salto Baixinho Bloco Moleca 5259.875 Nude Verniz</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 49,90</span>
+              <span class="td-price-old">R$ 119,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">35, 36</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="22">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="22" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_771525-MLA108490377972_032026-O.jpg" alt="Sandália Casual Modare Ultraconforto Salto Baixo 7211.101" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Casual Modare Ultraconforto Salto Baixo 7211.101</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 79,90</span>
+              <span class="td-price-old">R$ 159,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">36, 37, 39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="23">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="23" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_707671-MLA108490282578_032026-O.jpg" alt="Tamanco Ortopédico Modare 7174.120 Nude Com Massageador Nude" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Tamanco Ortopédico Modare 7174.120 Nude Com Massageador Nude</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 59,90</span>
+              <span class="td-price-old">R$ 119,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="24">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="24" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_802030-MLB108517568690_032026-O.jpg" alt="Chinelo Tamanco Anabela Modare Massageador 7174.105 Preto" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Chinelo Tamanco Anabela Modare Massageador 7174.105 Preto</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 49,90</span>
+              <span class="td-price-old">R$ 109,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34, 35</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="25">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="25" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_973397-MLB109444322641_032026-O.jpg" alt="Sandalia Ortopédica Massageadora Campesi Dakota Ce182 Preto Preto" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandalia Ortopédica Massageadora Campesi Dakota Ce182 Preto Preto</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 99,90</span>
+              <span class="td-price-old">R$ 199,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">40</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="26">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="26" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_935889-MLA109382282637_032026-O.jpg" alt="Sandália Petite Jolie Sunshine White/doce De Leite Pj7181 Doce De Leite/branco" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Petite Jolie Sunshine White/doce De Leite Pj7181 Doce De Leite/branco</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 84,90</span>
+              <span class="td-price-old">R$ 169,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="27">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="27" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_991832-MLB108515531072_032026-O.jpg" alt="Tamanco Beira Rio Conforto Salto Bloco 8436.240 Preto Fivela Preto" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Tamanco Beira Rio Conforto Salto Bloco 8436.240 Preto Fivela Preto</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 77,90</span>
+              <span class="td-price-old">R$ 154,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="28">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="28" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_717060-MLB108517574584_032026-O.jpg" alt="Sandália Papete Petite Jolie Pj7233 Preto Caramelo Corrente" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Papete Petite Jolie Pj7233 Preto Caramelo Corrente</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 84,90</span>
+              <span class="td-price-old">R$ 169,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34, 35, 38</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="29">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="29" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_791769-MLA109319233593_032026-O.jpg" alt="Sandália Salto Médio Beira Rio Conforto 8436.241 Preta Doura Preto" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Salto Médio Beira Rio Conforto 8436.241 Preta Doura Preto</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 79,90</span>
+              <span class="td-price-old">R$ 159,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="30">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="30" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_717762-MLB108731694824_032026-O.jpg" alt="Sandália Anatômica Mississipi Mf454 Creme Com Elástico Creme 40 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Anatômica Mississipi Mf454 Creme Com Elástico Creme 40 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 74,90</span>
+              <span class="td-price-old">R$ 149,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">40</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="31">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="31" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_695500-MLA109381927125_032026-O.jpg" alt="Sandália Vizzano Salto Bloco Médio 6464.105 Dourada Brilho" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Vizzano Salto Bloco Médio 6464.105 Dourada Brilho</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 79,90</span>
+              <span class="td-price-old">R$ 159,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">37, 38</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="32">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="32" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_919635-MLB109324140055_032026-O.jpg" alt="Rasteira Slide Dakota Trançado Y9252 Caramelo Metalizado Caramelo 36 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Rasteira Slide Dakota Trançado Y9252 Caramelo Metalizado Caramelo 36 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 79,90</span>
+              <span class="td-price-old">R$ 159,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">36</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="33">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="33" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_622480-MLA108518071422_032026-O.jpg" alt="Sandália Rasteira Mississipi Mf833 Calcanhar Offwhite Brilho" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Rasteira Mississipi Mf833 Calcanhar Offwhite Brilho</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 74,90</span>
+              <span class="td-price-old">R$ 149,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">36, 37</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="34">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="34" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_892974-MLA109467405971_032026-O.jpg" alt="Sandália Salto Bloco Médio Mississipi Mf942 Branca Off Branco 37 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Salto Bloco Médio Mississipi Mf942 Branca Off Branco 37 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 69,90</span>
+              <span class="td-price-old">R$ 139,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">37</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="35">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="35" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_854407-MLA109467727453_032026-O.jpg" alt="Sandália Beira Rio Conforto 8379.258 Nude Salto Baixo Festa Nude 36 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Beira Rio Conforto 8379.258 Nude Salto Baixo Festa Nude 36 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 77,90</span>
+              <span class="td-price-old">R$ 154,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">36</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="36">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="36" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_869911-MLB109465668003_032026-O.jpg" alt="Sandália Salto Baixo Mississipi Mf741 Bege Nude Tira Brilho Nude 39 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Salto Baixo Mississipi Mf741 Bege Nude Tira Brilho Nude 39 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 139,90</span>
+              <span class="td-price-old">R$ 69,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="37">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="37" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_977637-MLB109467028493_032026-O.jpg" alt="Sandalia Papete Quiz 69-1931-57 Caramelo Spikes Dourado Caramelo 37 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandalia Papete Quiz 69-1931-57 Caramelo Spikes Dourado Caramelo 37 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 99,90</span>
+              <span class="td-price-old">R$ 199,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">37</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="38">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="38" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_942864-MLB109465661651_032026-O.jpg" alt="Sandália Feminina Salto Médio Mississipi Mf753 Preto Brilho" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Feminina Salto Médio Mississipi Mf753 Preto Brilho</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 74,90</span>
+              <span class="td-price-old">R$ 149,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">36, 37</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="39">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="39" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_862999-MLA109464230595_032026-O.jpg" alt="Sandália Rasteira Calcanhar Fechado Misissipi Mf013 Caramelo Caramelo 34 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Rasteira Calcanhar Fechado Misissipi Mf013 Caramelo Caramelo 34 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 69,90</span>
+              <span class="td-price-old">R$ 139,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="40">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="40" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_908875-MLA109464308175_032026-O.jpg" alt="Sandália Rasteira De Calcanhar Dakota Y9614 Branca Pedras" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Rasteira De Calcanhar Dakota Y9614 Branca Pedras</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 99,90</span>
+              <span class="td-price-old">R$ 199,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">37, 38, 39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="41">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="41" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_919012-MLA109464164415_032026-O.jpg" alt="Sandália Papete Flatform Quiz 69-1780-14 Amendoa Nude Spikes Amendoa 39 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Papete Flatform Quiz 69-1780-14 Amendoa Nude Spikes Amendoa 39 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 99,90</span>
+              <span class="td-price-old">R$ 209,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="42">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="42" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_925869-MLB109465619409_032026-O.jpg" alt="Chinelo Flatform Quiz 69-1496-01 Bege Amendoa Spikes Dourado" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Chinelo Flatform Quiz 69-1496-01 Bege Amendoa Spikes Dourado</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 99,90</span>
+              <span class="td-price-old">R$ 199,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">36, 38</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="43">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="43" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/D_654080-MLA109447531693_032026-O.jpg" alt="Sandália Campesí Conforto Salto Baixo Ce141 Creme Nude Creme 35 Br" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Campesí Conforto Salto Baixo Ce141 Creme Nude Creme 35 Br</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 99,90</span>
+              <span class="td-price-old">R$ 199,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">35</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="44">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="44" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/sandalia-rasteira-mississipi-mf842-feminino-bd6c198f8678a41adfd32bdbce177fe5.jpg" alt="Sandália Mississipi MF842 Ouro" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Mississipi MF842 Ouro</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 67,90</span>
+              <span class="td-price-old">R$ 134,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">35</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="45">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="45" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr>
+          <tr>
+            <td><div class="td-img-wrap">
+              <img class="td-img" src="./Admin — Casual Calçados_files/IMG_9177.jpg" alt="Sandália Santinelli Preta em Couro Legítimo" onerror="this.style.background=&#39;#1a1a1a&#39;">
+              <span class="td-name">Sandália Santinelli Preta em Couro Legítimo</span>
+            </div></td>
+            <td><span class="td-cat">Feminino</span></td>
+            <td>
+              <span class="td-price">R$ 164,90</span>
+              <span class="td-price-old">R$ 79,90</span>
+            </td>
+            <td>
+              <span class="td-badge badge-promo">Promoção</span>
+            </td>
+            <td><span class="td-sizes">34, 37, 38, 39</span></td>
+            <td><div class="td-actions">
+              <button class="btn btn-outline btn-sm" data-edit="46">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm btn-icon" data-delete="46" title="Excluir">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"></path></svg>
+              </button>
+            </div></td>
+          </tr></tbody>
+              </table>
+            </div>
+          </div></main>
     </div>
   </div>
 
@@ -402,15 +1273,15 @@
         <button class="modal-close" id="modal-close-btn">✕</button>
       </div>
       <div class="modal-body">
-        <input type="hidden" id="form-id" />
+        <input type="hidden" id="form-id" value="">
         <div class="field">
           <label>Nome do Produto *</label>
-          <input type="text" id="form-name" placeholder="Ex: Tênis Urban Runner" />
+          <input type="text" id="form-name" placeholder="Ex: Tênis Urban Runner">
         </div>
         <div class="form-row">
           <div class="field">
             <label>Categoria *</label>
-            <select id="form-category"><option value="">Selecione...</option></select>
+            <select id="form-category"><option value="">Selecione...</option><option value="masculino">Masculino</option><option value="feminino">Feminino</option><option value="infantil">Infantil</option></select>
           </div>
           <div class="field">
             <label>Badge / Destaque</label>
@@ -424,32 +1295,35 @@
         <div class="form-row">
           <div class="field">
             <label>Preço (R$) *</label>
-            <input type="number" id="form-price" placeholder="0.00" min="0" step="0.01" />
+            <input type="number" id="form-price" placeholder="0.00" min="0" step="0.01">
           </div>
           <div class="field">
             <label>Preço Antigo (R$)</label>
-            <input type="number" id="form-old-price" placeholder="Vazio se não houver" min="0" step="0.01" />
+            <input type="number" id="form-old-price" placeholder="Vazio se não houver" min="0" step="0.01">
           </div>
         </div>
         <div class="field">
           <label>Fotos do Produto * (até 3)</label>
-          <div id="img-fields" style="display:flex;flex-direction:column;gap:0.6rem;margin-top:0.2rem;"></div>
+          <div id="img-fields" style="display:flex;flex-direction:column;gap:0.6rem;margin-top:0.2rem;"><div class="img-field-row" data-idx="0">
+        <img class="img-field-thumb show" src="./Admin — Casual Calçados_files/IMG_9177.jpg" alt="preview">
+        <input type="url" placeholder="Foto principal (obrigatória) https://..." value="">
+        </div></div>
           <button type="button" class="btn btn-outline btn-sm" id="btn-add-img-field" style="margin-top:0.5rem;align-self:flex-start;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             Adicionar foto
           </button>
           <span style="font-size:.72rem;color:var(--muted);margin-top:.3rem;display:block;">A primeira foto é a principal exibida no card.</span>
         </div>
         <div class="field">
           <label>Tamanhos Disponíveis *</label>
-          <div class="size-picker-wrap" id="size-picker"></div>
+          <div class="size-picker-wrap" id="size-picker"><div class="size-chip">26</div><div class="size-chip">27</div><div class="size-chip">28</div><div class="size-chip">29</div><div class="size-chip">30</div><div class="size-chip">31</div><div class="size-chip">32</div><div class="size-chip">33</div><div class="size-chip on">34</div><div class="size-chip">35</div><div class="size-chip">36</div><div class="size-chip on">37</div><div class="size-chip on">38</div><div class="size-chip on">39</div><div class="size-chip">40</div><div class="size-chip">41</div><div class="size-chip">42</div><div class="size-chip">43</div><div class="size-chip">44</div></div>
           <div class="size-hint">Clique nos números para selecionar/desmarcar</div>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" id="modal-cancel-btn">Cancelar</button>
         <button class="btn btn-gold" id="modal-save-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
           Salvar Produto
         </button>
       </div>
@@ -464,21 +1338,21 @@
         <button class="modal-close" id="cat-modal-close">✕</button>
       </div>
       <div class="modal-body">
-        <input type="hidden" id="cat-form-original-slug" />
+        <input type="hidden" id="cat-form-original-slug">
         <div class="field">
           <label>Nome da Categoria *</label>
-          <input type="text" id="cat-form-name" placeholder="Ex: Esportivo" />
+          <input type="text" id="cat-form-name" placeholder="Ex: Esportivo">
         </div>
         <div class="field">
           <label>Slug (identificador) *</label>
-          <input type="text" id="cat-form-slug" placeholder="esportivo" />
+          <input type="text" id="cat-form-slug" placeholder="esportivo">
           <span style="font-size:.72rem;color:var(--muted);margin-top:.35rem;display:block;">Somente letras minúsculas, números e hífens. Gerado automaticamente.</span>
         </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" id="cat-modal-cancel">Cancelar</button>
         <button class="btn btn-gold" id="cat-modal-save">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
           Salvar
         </button>
       </div>
@@ -498,7 +1372,7 @@
     </div>
   </div>
 
-  <div class="toast" id="toast"></div>
+  <div class="toast" id="toast">✅ Produto adicionado!</div>
 
   <script>
     // ── AUTH
@@ -1607,5 +2481,6 @@
       if (document.getElementById('confirm-modal').classList.contains('open')) closeConfirm();
     });
   </script>
-</body>
-</html>
+
+
+</body></html>
